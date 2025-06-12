@@ -1,2 +1,791 @@
-# JJY-webdesign.github.io
-静态页面托管
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>一个重要的选择</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  
+  <!-- Tailwind 配置 -->
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            love: {
+              light: '#FFF0F5',
+              DEFAULT: '#FF69B4',
+              dark: '#DB7093',
+              blush: '#FFB6C1',
+              pink: '#FFC0CB',
+              soft: '#FFE4E1',
+              cream: '#FFF8DC'
+            }
+          },
+          fontFamily: {
+            love: ['"Dancing Script"', 'cursive', '"Noto Sans SC"', 'sans-serif']
+          }
+        }
+      }
+    }
+  </script>
+  
+  <style type="text/tailwindcss">
+    @layer utilities {
+      .text-shadow {
+        text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      }
+      .text-shadow-lg {
+        text-shadow: 0 4px 8px rgba(0,0,0,0.12), 0 2px 4px rgba(0,0,0,0.08);
+      }
+      .animate-float {
+        animation: float 3s ease-in-out infinite;
+      }
+      .animate-pulse-slow {
+        animation: pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+      }
+      .choice-hover {
+        transition: all 0.3s ease;
+      }
+      .choice-hover:hover {
+        transform: scale(1.05);
+        box-shadow: 0 10px 25px -5px rgba(255, 105, 180, 0.2), 0 10px 10px -5px rgba(255, 105, 180, 0.1);
+      }
+      .slide-up {
+        animation: slideUp 0.5s ease forwards;
+      }
+      .fade-in {
+        animation: fadeIn 0.5s ease forwards;
+      }
+      .zoom-in {
+        animation: zoomIn 0.7s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+      }
+      .scale-in {
+        animation: scaleIn 0.5s ease forwards;
+      }
+      .animate-cry {
+        animation: cry 2s ease-in-out infinite;
+      }
+      .animate-tear {
+        animation: tear 2s ease-in-out infinite;
+      }
+      .fade-out {
+        animation: fadeOut 0.5s ease forwards;
+      }
+      .bounce-in {
+        animation: bounceIn 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+      }
+      .heart-beat {
+        animation: heartBeat 1.5s ease-in-out infinite;
+      }
+      .float-heart {
+        animation: floatHeart 5s ease-in-out infinite;
+      }
+      .rotate-heart {
+        animation: rotateHeart 10s linear infinite;
+      }
+      .pulse-border {
+        animation: pulseBorder 2s ease-in-out infinite;
+      }
+      /* 心形样式 */
+      .heart-shape {
+        position: relative;
+        width: 180px;
+        height: 180px;
+        margin: 0 auto;
+        background-color: #fff;
+        transform: rotate(-45deg);
+        border-radius: 50% 50% 0 50%;
+        overflow: hidden;
+      }
+      .heart-shape img {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transform: rotate(45deg);
+      }
+      /* 烟花特效样式 */
+      .firework {
+        position: absolute;
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        pointer-events: none;
+        z-index: 50;
+      }
+      .firework-particle {
+        position: absolute;
+        width: 4px;
+        height: 4px;
+        border-radius: 50%;
+        pointer-events: none;
+        z-index: 50;
+      }
+      .firework-explosion {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        pointer-events: none;
+        z-index: 50;
+      }
+      .confetti {
+        position: absolute;
+        width: 10px;
+        height: 10px;
+        pointer-events: none;
+        z-index: 50;
+      }
+      .glow {
+        filter: blur(3px);
+        opacity: 0.8;
+      }
+      .glow-strong {
+        filter: blur(5px);
+        opacity: 0.6;
+      }
+      .sparkle {
+        animation: sparkle 0.5s ease-in-out infinite;
+      }
+      .twinkle {
+        animation: twinkle 1s ease-in-out infinite;
+      }
+    }
+    
+    @keyframes float {
+      0% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); }
+      100% { transform: translateY(0px); }
+    }
+    
+    @keyframes slideUp {
+      from { transform: translateY(20px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    
+    @keyframes zoomIn {
+      from { transform: scale(0.5); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+    
+    @keyframes scaleIn {
+      from { transform: scale(0.95); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+    
+    @keyframes cry {
+      0%, 100% { transform: translateY(0); }
+      25% { transform: translateY(-5px) rotate(-2deg); }
+      75% { transform: translateY(-5px) rotate(2deg); }
+    }
+    
+    @keyframes tear {
+      0% { transform: translateY(-20px); opacity: 0; }
+      20% { transform: translateY(-10px); opacity: 1; }
+      80% { transform: translateY(20px); opacity: 1; }
+      100% { transform: translateY(30px); opacity: 0; }
+    }
+    
+    @keyframes fadeOut {
+      from { opacity: 1; }
+      to { opacity: 0; }
+    }
+    
+    @keyframes bounceIn {
+      0% { transform: scale(0.3); opacity: 0; }
+      50% { transform: scale(1.05); opacity: 1; }
+      70% { transform: scale(0.9); }
+      100% { transform: scale(1); }
+    }
+    
+    @keyframes heartBeat {
+      0% { transform: scale(1); }
+      14% { transform: scale(1.2); }
+      28% { transform: scale(1); }
+      42% { transform: scale(1.2); }
+      70% { transform: scale(1); }
+    }
+    
+    @keyframes floatHeart {
+      0% { transform: translateY(0) rotate(0deg); opacity: 0.8; }
+      50% { transform: translateY(-50px) rotate(180deg); opacity: 0.5; }
+      100% { transform: translateY(-100px) rotate(360deg); opacity: 0; }
+    }
+    
+    @keyframes rotateHeart {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    
+    @keyframes pulseBorder {
+      0% { box-shadow: 0 0 0 0 rgba(255, 105, 180, 0.4); }
+      70% { box-shadow: 0 0 0 10px rgba(255, 105, 180, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(255, 105, 180, 0); }
+    }
+    
+    @keyframes sparkle {
+      0%, 100% { opacity: 0.8; }
+      50% { opacity: 0.3; }
+    }
+    
+    @keyframes twinkle {
+      0%, 100% { opacity: 0.7; transform: scale(1); }
+      50% { opacity: 1; transform: scale(1.2); }
+    }
+  </style>
+  
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
+</head>
+
+<body class="min-h-screen bg-gradient-to-br from-love-light to-love-cream flex flex-col items-center justify-center p-4 overflow-x-hidden">
+  <!-- 装饰性爱心元素 -->
+  <div class="absolute top-0 left-0 w-full h-full pointer-events-none overflow-hidden">
+    <div class="heart absolute top-10 left-10 text-love-pink opacity-60 text-5xl animate-float" style="animation-delay: 0s"><i class="fa fa-heart"></i></div>
+    <div class="heart absolute top-20 right-20 text-love-blush opacity-60 text-6xl animate-float" style="animation-delay: 1s"><i class="fa fa-heart"></i></div>
+    <div class="heart absolute bottom-10 left-20 text-love-pink opacity-60 text-4xl animate-float" style="animation-delay: 2s"><i class="fa fa-heart"></i></div>
+    <div class="heart absolute bottom-20 right-10 text-love-blush opacity-60 text-5xl animate-float" style="animation-delay: 3s"><i class="fa fa-heart"></i></div>
+    
+    <!-- 浮动爱心效果 -->
+    <div class="floating-hearts absolute inset-0 pointer-events-none">
+      <div class="absolute text-love-pink opacity-50 text-2xl float-heart" style="left: 10%; top: 100%; animation-delay: 0s"><i class="fa fa-heart"></i></div>
+      <div class="absolute text-love-blush opacity-50 text-xl float-heart" style="left: 25%; top: 100%; animation-delay: 0.5s"><i class="fa fa-heart"></i></div>
+      <div class="absolute text-love-pink opacity-50 text-2xl float-heart" style="left: 40%; top: 100%; animation-delay: 1s"><i class="fa fa-heart"></i></div>
+      <div class="absolute text-love-blush opacity-50 text-xl float-heart" style="left: 55%; top: 100%; animation-delay: 1.5s"><i class="fa fa-heart"></i></div>
+      <div class="absolute text-love-pink opacity-50 text-2xl float-heart" style="left: 70%; top: 100%; animation-delay: 2s"><i class="fa fa-heart"></i></div>
+      <div class="absolute text-love-blush opacity-50 text-xl float-heart" style="left: 85%; top: 100%; animation-delay: 2.5s"><i class="fa fa-heart"></i></div>
+    </div>
+  </div>
+
+  <!-- 烟花容器 -->
+  <div id="fireworks-container" class="fixed inset-0 pointer-events-none z-40"></div>
+
+  <!-- 主容器 -->
+  <div class="w-full max-w-md relative z-10">
+    <!-- 标题卡片 -->
+    <div id="title-card" class="bg-white/95 backdrop-blur-sm rounded-3xl shadow-xl p-8 mb-8 text-center transform transition-all duration-500 animate-float">
+      <div class="relative inline-block mb-4">
+        <h1 class="text-[clamp(2.2rem,6vw,3.5rem)] font-love font-bold text-love-dark mb-2 text-shadow-lg heart-beat">亲爱的</h1>
+        <div class="absolute -bottom-1 left-1/2 transform -translate-x-1/2 w-3/4 h-1 bg-love-blush rounded-full"></div>
+      </div>
+      <p class="text-gray-700 text-lg mb-6">可以和好吗？</p>
+    </div>
+    
+    <!-- 选项容器 -->
+    <div id="choices-container" class="space-y-4 mb-8">
+      <!-- 选项按钮 -->
+      <button id="choice-yes" class="w-full bg-love hover:bg-love-dark text-white font-bold py-4 px-6 rounded-full shadow-lg choice-hover flex items-center justify-center">
+        <span class="text-xl mr-2"><i class="fa fa-heart"></i></span>
+        <span>和好</span>
+      </button>
+      
+      <button id="choice-other" class="w-full bg-white hover:bg-love-soft text-love-dark font-bold py-4 px-6 rounded-full shadow-lg choice-hover flex items-center justify-center">
+        <span class="text-xl mr-2"><i class="fa fa-comments"></i></span>
+        <span>不和好</span>
+      </button>
+    </div>
+    
+    <!-- 情话卡片 -->
+    <div id="love-message-card" class="bg-white/95 backdrop-blur-sm rounded-3xl shadow-xl p-8 mb-8 text-center hidden fade-in">
+      <div id="crying-emoji-container" class="mb-6">
+        <div class="inline-block relative animate-cry p-3 bg-love-soft rounded-full">
+          <!-- 心形图片展示 -->
+          <div class="heart-shape">
+            <img src="https://picsum.photos/id/237/140/140" alt="哭泣表情" id="crying-image">
+          </div>
+          <div class="absolute top-1/4 right-1/4 w-2 h-6 bg-blue-400 rounded-full animate-tear" style="animation-delay: 0s;"></div>
+          <div class="absolute top-1/4 right-1/3 w-2 h-6 bg-blue-400 rounded-full animate-tear" style="animation-delay: 0.5s;"></div>
+        </div>
+      </div>
+      <div id="love-message-text" class="text-lg text-gray-800 mb-6 leading-relaxed">
+        这里将按顺序显示情话...
+      </div>
+      <div class="space-y-3">
+        <button id="next-message" class="w-full bg-white hover:bg-love-soft text-love-dark font-bold py-3 px-6 rounded-full shadow-lg choice-hover flex items-center justify-center">
+          <span class="text-xl mr-2"><i class="fa fa-comments"></i></span>
+          <span>不和好</span>
+        </button>
+        <button id="love-choice-yes" class="w-full bg-love hover:bg-love-dark text-white font-bold py-3 px-6 rounded-full shadow-lg choice-hover flex items-center justify-center">
+          <span class="text-xl mr-2"><i class="fa fa-heart"></i></span>
+          <span>和好</span>
+        </button>
+      </div>
+    </div>
+    
+    <!-- 结果显示区域 -->
+    <div id="result" class="bg-white/95 backdrop-blur-sm rounded-3xl shadow-xl p-8 text-center hidden fade-in">
+      <div id="love-message" class="text-[clamp(1.8rem,5vw,2.8rem)] font-love font-bold text-love-dark mb-4 text-shadow-lg">
+        爱你 <i class="fa fa-heart heart-beat"></i>
+      </div>
+      <div id="kiss-image-container" class="mb-6 zoom-in relative">
+        <div class="inline-block p-4 bg-love-soft rounded-full shadow-lg pulse-border">
+          <!-- 心形图片展示 -->
+          <div class="heart-shape">
+            <img id="kiss-image" src="https://picsum.photos/id/237/300/300" alt="亲亲表情包">
+          </div>
+        </div>
+        
+        <!-- 爱心环绕效果 -->
+        <div id="heart-ring" class="absolute top-0 left-0 w-full h-full rounded-full rotate-heart hidden">
+          <div class="absolute top-0 left-1/2 transform -translate-x-1/2 text-love-blush text-3xl">
+            <i class="fa fa-heart"></i>
+          </div>
+          <div class="absolute top-1/4 right-1/4 text-love-pink text-2xl">
+            <i class="fa fa-heart"></i>
+          </div>
+          <div class="absolute top-1/2 right-0 transform translate-y-1/2 text-love-blush text-3xl">
+            <i class="fa fa-heart"></i>
+          </div>
+          <div class="absolute bottom-1/4 right-1/4 text-love-pink text-2xl">
+            <i class="fa fa-heart"></i>
+          </div>
+          <div class="absolute bottom-0 left-1/2 transform -translate-x-1/2 text-love-blush text-3xl">
+            <i class="fa fa-heart"></i>
+          </div>
+          <div class="absolute bottom-1/4 left-1/4 text-love-pink text-2xl">
+            <i class="fa fa-heart"></i>
+          </div>
+          <div class="absolute top-1/2 left-0 transform translate-y-1/2 text-love-blush text-3xl">
+            <i class="fa fa-heart"></i>
+          </div>
+          <div class="absolute top-1/4 left-1/4 text-love-pink text-2xl">
+            <i class="fa fa-heart"></i>
+          </div>
+        </div>
+      </div>
+      <div class="flex justify-center space-x-4 mt-8">
+        <div class="text-4xl text-love-blush animate-float" style="animation-delay: 0s"><i class="fa fa-heart"></i></div>
+        <div class="text-5xl text-love-pink animate-float" style="animation-delay: 0.5s"><i class="fa fa-heart"></i></div>
+        <div class="text-4xl text-love-blush animate-float" style="animation-delay: 1s"><i class="fa fa-heart"></i></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 页脚 -->
+  <footer class="mt-auto text-center text-love-dark text-sm py-4">
+    <p>永远爱你 ❤️</p>
+  </footer>
+
+  <script>
+    // DOM加载完成后执行
+    document.addEventListener('DOMContentLoaded', function() {
+      // 获取DOM元素
+      const choiceYes = document.getElementById('choice-yes');
+      const choiceOther = document.getElementById('choice-other');
+      const choicesContainer = document.getElementById('choices-container');
+      const result = document.getElementById('result');
+      const loveMessageCard = document.getElementById('love-message-card');
+      const loveMessageText = document.getElementById('love-message-text');
+      const nextMessage = document.getElementById('next-message');
+      const loveChoiceYes = document.getElementById('love-choice-yes');
+      const kissImage = document.getElementById('kiss-image');
+      const kissImageContainer = document.getElementById('kiss-image-container');
+      const cryingImage = document.getElementById('crying-image');
+      const titleCard = document.getElementById('title-card');
+      const heartRing = document.getElementById('heart-ring');
+      const fireworksContainer = document.getElementById('fireworks-container');
+      
+      // 情话数组（按顺序显示）
+      const loveMessages = [
+        "宝贝，我知道我错了，我不该让你生气。你对我来说是最重要的人，我愿意为你做任何事情来弥补我的过错。",
+        "亲爱的，你是我生命中最美好的礼物。我很抱歉让你伤心，希望你能原谅我。我会更加珍惜我们的感情，不再让你受委屈。",
+        "对不起，我的宝贝。我明白我的行为让你失望了，我正在努力改正。你是我生命中最爱的人，没有你我会很孤单。请给我一个机会证明我的爱。",
+        "宝贝，我爱你，我希望你能开心快乐。如果我的过错让你难过，我真的很抱歉。我会用我的行动来证明我对你的爱是真诚的。",
+        "亲爱的，你是我的一切。我知道我有时候会犯错，但我保证会更加成熟，更加懂得如何爱你。请相信我对你的感情永远不会改变。",
+        "对不起，我的小公主。我知道我有时候不够细心，没有照顾好你的感受。我会努力学习如何更好地爱你，希望你能给我一些时间。",
+        "宝贝，我爱你胜过爱我自己。我很抱歉让你不开心，我会用我的一生来弥补这个过错。请相信我，我会成为你值得依靠的人。",
+        "亲爱的，你是我的阳光，照亮我的生活。我为我的错误向你道歉，希望你能原谅我。我会用我的行动来证明我对你的爱是永恒的。",
+        "对不起，我的女王大人。我知道我有时候会让你失望，但我保证会更加努力，成为你心目中完美的伴侣。请给我一个机会来证明我的爱。",
+        "宝贝，我真的很爱你。我知道我做错了，我会认真反思自己的问题。你是我生命中最重要的人，我希望我们能一直走下去。"
+      ];
+      
+      // 当前显示的情话索引
+      let currentMessageIndex = 0;
+      
+      // 亲亲表情包图片数组
+      const kissImages = [
+       "https://c-ssl.duitang.com/uploads/item/201807/04/20180704190435_VtHQC.jpeg"
+
+      ];
+      
+      // 哭泣表情图片数组
+      const cryingImages = [
+        "https://c-ssl.duitang.com/uploads/item/201710/20/20171020190544_WiPaU.jpeg",
+	"https://c-ssl.duitang.com/uploads/blog/202404/04/4ESe6M42Co00Vxm.jpg",
+	"https://c-ssl.duitang.com/uploads/blog/202404/04/P5SnjbV1hbQQqxE.jpg",
+	"https://c-ssl.duitang.com/uploads/blog/202404/04/gVS24QaZCQMMlmG.jpg",
+	"https://c-ssl.duitang.com/uploads/blog/202404/04/2YSZ0gd6C6XXz2G.jpg",
+	"https://c-ssl.duitang.com/uploads/blog/202404/04/WXSbL8Z5sQOO5Pb.gif",
+	"https://c-ssl.duitang.com/uploads/blog/202404/04/wgSQBxa9I9AAPq2.gif",
+	"https://c-ssl.duitang.com/uploads/blog/202404/04/y9SBJxwaSb334MM.gif",
+	"https://c-ssl.duitang.com/uploads/blog/202404/04/B8SVP910hlXXpmb.gif",
+	"https://c-ssl.duitang.com/uploads/blog/202404/04/Q2Sze8Nds8VVnqn.gif"
+              ];
+      
+      // 烟花颜色数组
+      const fireworkColors = [
+        '#FF69B4', '#FF1493', '#DB7093', '#FFC0CB', '#FFB6C1', 
+        '#FF6347', '#FFA500', '#FFFF00', '#00FF00', '#00FFFF',
+        '#00BFFF', '#1E90FF', '#9370DB', '#8A2BE2', '#DA70D6',
+        '#FF00FF', '#FF4500', '#FFD700', '#32CD32', '#00CED1',
+        '#9932CC', '#FF1493', '#FF69B4', '#FF7F50', '#FFA07A'
+      ];
+      
+      // 调整颜色亮度
+      function lightenColor(color, percent) {
+        const num = parseInt(color.replace('#', ''), 16);
+        const amt = Math.round(2.55 * percent);
+        const R = (num >> 16) + amt;
+        const G = ((num >> 8) & 0x00FF) + amt;
+        const B = (num & 0x0000FF) + amt;
+        
+        return '#' + (0x1000000 + (R < 255 ? R < 1 ? 0 : R : 255) * 65536 + (G < 255 ? G < 1 ? 0 : G : 255) * 256 + (B < 255 ? B < 1 ? 0 : B : 255)).toString(16).slice(1);
+      }
+      
+      // 调整颜色暗度
+      function darkenColor(color, percent) {
+        const num = parseInt(color.replace('#', ''), 16);
+        const amt = Math.round(2.55 * percent);
+        const R = (num >> 16) - amt;
+        const G = ((num >> 8) & 0x00FF) - amt;
+        const B = (num & 0x0000FF) - amt;
+        
+        return '#' + (0x1000000 + (R > 0 ? R > 255 ? 255 : R : 0) * 65536 + (G > 0 ? G > 255 ? 255 : G : 0) * 256 + (B > 0 ? B > 255 ? 255 : B : 0)).toString(16).slice(1);
+      }
+      
+      // 调整颜色色相
+      function shiftHue(hex, degrees) {
+        const rgb = hexToRgb(hex);
+        const hsv = rgbToHsv(rgb[0], rgb[1], rgb[2]);
+        
+        hsv[0] = (hsv[0] + degrees / 360) % 1;
+        if (hsv[0] < 0) hsv[0] += 1;
+        
+        const newRgb = hsvToRgb(hsv[0], hsv[1], hsv[2]);
+        return '#' + Math.round(newRgb[0]).toString(16).padStart(2, '0') +
+               Math.round(newRgb[1]).toString(16).padStart(2, '0') +
+               Math.round(newRgb[2]).toString(16).padStart(2, '0');
+      }
+      
+      // 辅助函数：HEX转RGB
+      function hexToRgb(hex) {
+        const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+        return result ? [
+          parseInt(result[1], 16),
+          parseInt(result[2], 16),
+          parseInt(result[3], 16)
+        ] : null;
+      }
+      
+      // 辅助函数：RGB转HSV
+      function rgbToHsv(r, g, b) {
+        r /= 255; g /= 255; b /= 255;
+        const max = Math.max(r, g, b);
+        const min = Math.min(r, g, b);
+        let h = 0, s = 0, v = max;
+        const d = max - min;
+        s = max === 0 ? 0 : d / max;
+        if (max !== min) {
+          switch (max) {
+            case r: h = (g - b) / d + (g < b ? 6 : 0); break;
+            case g: h = (b - r) / d + 2; break;
+            case b: h = (r - g) / d + 4; break;
+          }
+          h /= 6;
+        }
+        return [h, s, v];
+      }
+      
+      // 辅助函数：HSV转RGB
+      function hsvToRgb(h, s, v) {
+        let r, g, b;
+        const i = Math.floor(h * 6);
+        const f = h * 6 - i;
+        const p = v * (1 - s);
+        const q = v * (1 - f * s);
+        const t = v * (1 - (1 - f) * s);
+        switch (i % 6) {
+          case 0: r = v; g = t; b = p; break;
+          case 1: r = q; g = v; b = p; break;
+          case 2: r = p; g = v; b = t; break;
+          case 3: r = p; g = q; b = v; break;
+          case 4: r = t; g = p; b = v; break;
+          case 5: r = v; g = p; b = q; break;
+        }
+        return [r * 255, g * 255, b * 255];
+      }
+      
+      // 显示下一条情话（按顺序）
+      function showNextLoveMessage() {
+        loveMessageText.textContent = loveMessages[currentMessageIndex];
+        
+        // 添加动画效果
+        loveMessageText.classList.remove('fade-in');
+        void loveMessageText.offsetWidth;
+        loveMessageText.classList.add('fade-in');
+        
+        // 切换哭泣表情（按顺序）
+        cryingImage.src = cryingImages[currentMessageIndex % cryingImages.length];
+        cryingImage.alt = "哭泣表情 " + (currentMessageIndex + 1);
+        cryingImage.classList.remove('fade-in');
+        void cryingImage.offsetWidth;
+        cryingImage.classList.add('fade-in');
+        
+        // 递增索引，循环显示
+        currentMessageIndex = (currentMessageIndex + 1) % loveMessages.length;
+      }
+      
+      // 显示随机亲亲表情包
+      function showRandomKissImage() {
+        const randomIndex = Math.floor(Math.random() * kissImages.length);
+        kissImage.src = kissImages[randomIndex];
+        kissImage.alt = "亲亲表情包 " + (randomIndex + 1);
+        kissImageContainer.classList.remove('zoom-in');
+        void kissImageContainer.offsetWidth;
+        kissImageContainer.classList.add('zoom-in');
+      }
+      
+      // 隐藏标题卡片
+      function hideTitleCard() {
+        titleCard.classList.add('fade-out');
+        setTimeout(() => {
+          titleCard.classList.add('hidden');
+        }, 500);
+      }
+      
+      // 显示爱心环绕效果
+      function showHeartRing() {
+        heartRing.classList.add('hidden');
+        void heartRing.offsetWidth;
+        heartRing.classList.remove('hidden');
+        heartRing.classList.remove('rotate-heart');
+        void heartRing.offsetWidth;
+        heartRing.classList.add('rotate-heart');
+      }
+      
+      // 创建烟花粒子
+      function createFireworkParticle(x, y, color, velocityX, velocityY, size = 4, isGlow = false, isSparkle = false) {
+        const particle = document.createElement('div');
+        particle.className = 'firework-particle';
+        particle.style.backgroundColor = color;
+        particle.style.left = `${x}px`;
+        particle.style.top = `${y}px`;
+        particle.style.width = `${size}px`;
+        particle.style.height = `${size}px`;
+        if (isGlow) particle.classList.add('glow');
+        if (isSparkle) particle.classList.add('sparkle');
+        fireworksContainer.appendChild(particle);
+        
+        const gravity = 0.1;
+        const friction = 0.95;
+        const lifetime = Math.random() * 1000 + 1000;
+        const startTime = Date.now();
+        const animation = () => {
+          const elapsed = Date.now() - startTime;
+          if (elapsed > lifetime) { particle.remove(); return; }
+          
+          velocityY += gravity;
+          velocityX *= friction;
+          velocityY *= friction;
+          x += velocityX;
+          y += velocityY;
+          
+          particle.style.left = `${x}px`;
+          particle.style.top = `${y}px`;
+          particle.style.opacity = 1 - (elapsed / lifetime);
+          
+          requestAnimationFrame(animation);
+        };
+        requestAnimationFrame(animation);
+      }
+      
+      // 创建烟花爆炸效果
+      function createFireworkExplosion(x, y, color, particleCount = 100) {
+        for (let i = 0; i < particleCount; i++) {
+          const angle = (Math.random() * Math.PI * 2);
+          const speed = Math.random() * 5 + 2;
+          const velocityX = Math.cos(angle) * speed;
+          const velocityY = Math.sin(angle) * speed;
+          const isGlow = Math.random() > 0.7;
+          const isSparkle = Math.random() > 0.8;
+          const size = Math.random() * 4 + 2;
+          createFireworkParticle(x, y, color, velocityX, velocityY, size, isGlow, isSparkle);
+        }
+        createFireworkParticle(x, y, color, 0, 0, 20, true, false);
+        for (let i = 0; i < 5; i++) {
+          const angle = (Math.random() * Math.PI * 2);
+          const speed = Math.random() * 3 + 1;
+          const velocityX = Math.cos(angle) * speed;
+          const velocityY = Math.sin(angle) * speed;
+          createFireworkParticle(x, y, color, velocityX, velocityY, 8, true, true);
+        }
+      }
+      
+      // 创建烟花发射
+      function createFirework() {
+        const width = window.innerWidth;
+        const height = window.innerHeight;
+        const startX = Math.random() * width;
+        const startY = height;
+        const targetX = Math.random() * width;
+        const targetY = Math.random() * height * 0.5;
+        const color = fireworkColors[Math.floor(Math.random() * fireworkColors.length)];
+        
+        const firework = document.createElement('div');
+        firework.className = 'firework';
+        firework.style.backgroundColor = color;
+        firework.style.left = `${startX}px`;
+        firework.style.top = `${startY}px`;
+        firework.style.boxShadow = `0 0 15px 5px ${color}`;
+        fireworksContainer.appendChild(firework);
+        
+        const distance = Math.sqrt(Math.pow(targetX - startX, 2) + Math.pow(targetY - startY, 2));
+        const duration = distance / 2;
+        const startTime = Date.now();
+        const animation = () => {
+          const elapsed = Date.now() - startTime;
+          const progress = Math.min(elapsed / duration, 1);
+          const easeProgress = progress * progress * progress;
+          const currentX = startX + (targetX - startX) * easeProgress;
+          const currentY = startY + (targetY - startY) * easeProgress;
+          
+          firework.style.left = `${currentX}px`;
+          firework.style.top = `${currentY}px`;
+          
+          if (elapsed % 20 === 0) {
+            const trailColor = lightenColor(color, 30);
+            createFireworkParticle(currentX, currentY, trailColor, 0, 0, 3, true, false);
+          }
+          
+          if (progress < 1) {
+            requestAnimationFrame(animation);
+          } else {
+            firework.remove();
+            createFireworkExplosion(targetX, targetY, color, 100);
+            if (Math.random() > 0.7) createHeartFirework(targetX, targetY, color);
+            if (Math.random() > 0.6) {
+              setTimeout(() => {
+                const secondaryColor = fireworkColors[Math.floor(Math.random() * fireworkColors.length)];
+                createFireworkExplosion(targetX, targetY, secondaryColor, 60);
+              }, 200);
+            }
+          }
+        };
+        requestAnimationFrame(animation);
+      }
+      
+      // 创建爱心形状的烟花
+      function createHeartFirework(x, y, baseColor) {
+        const createHeartParticle = (t, scale = 1) => {
+          const heartX = 16 * Math.pow(Math.sin(t), 3);
+          const heartY = 13 * Math.cos(t) - 5 * Math.cos(2*t) - 2 * Math.cos(3*t) - Math.cos(4*t);
+          const scaledX = heartX * scale;
+          const scaledY = -heartY * scale;
+          const offsetX = (Math.random() - 0.5) * 5;
+          const offsetY = (Math.random() - 0.5) * 5;
+          const finalX = x + scaledX + offsetX;
+          const finalY = y + scaledY + offsetY;
+          const hueShift = Math.random() * 30 - 15;
+          const color = shiftHue(baseColor, hueShift);
+          createFireworkParticle(finalX, finalY, color, 0, 0, 3, true, true);
+        };
+        
+        for (let t = 0; t < Math.PI * 2; t += 0.1) createHeartParticle(t, 0.8);
+        for (let t = 0; t < Math.PI * 2; t += 0.3) createHeartParticle(t, 1.2);
+        createFireworkParticle(x, y, baseColor, 0, 0, 10, true, false);
+      }
+      
+      // 处理"和好"按钮点击
+      function handleYesChoice() {
+        choicesContainer.classList.add('fade-out');
+        setTimeout(() => {
+          choicesContainer.classList.add('hidden');
+          result.classList.remove('hidden');
+          result.classList.add('fade-in');
+          showRandomKissImage();
+          showHeartRing();
+          for (let i = 0; i < 5; i++) {
+            setTimeout(createFirework, i * 300);
+          }
+        }, 500);
+      }
+      
+      // 处理"不和好"按钮点击
+      function handleOtherChoice() {
+        hideTitleCard();
+        choicesContainer.classList.add('fade-out');
+        setTimeout(() => {
+          choicesContainer.classList.add('hidden');
+          loveMessageCard.classList.remove('hidden');
+          loveMessageCard.classList.add('fade-in');
+          currentMessageIndex = 0; // 重置索引
+          showNextLoveMessage();
+        }, 500);
+      }
+      
+      // 处理"不和好"按钮点击(在情话卡片中)
+      function handleNextMessageClick() {
+        showNextLoveMessage();
+      }
+      
+      // 处理结果页"和好"按钮点击
+      function handleFinalYesChoice() {
+        loveMessageCard.classList.add('fade-out');
+        setTimeout(() => {
+          loveMessageCard.classList.add('hidden');
+          result.classList.remove('hidden');
+          result.classList.add('fade-in');
+          showRandomKissImage();
+          showHeartRing();
+          for (let i = 0; i < 5; i++) {
+            setTimeout(createFirework, i * 300);
+          }
+        }, 500);
+      }
+      
+      // 添加按钮点击事件监听器
+      choiceYes.addEventListener('click', handleYesChoice);
+      choiceOther.addEventListener('click', handleOtherChoice);
+      nextMessage.addEventListener('click', handleNextMessageClick);
+      loveChoiceYes.addEventListener('click', handleFinalYesChoice);
+      
+      // 点击烟花区域触发烟花
+      fireworksContainer.addEventListener('click', function(e) {
+        if (!result.classList.contains('hidden')) {
+          const fireworkCount = Math.floor(Math.random() * 3) + 1;
+          for (let i = 0; i < fireworkCount; i++) {
+            setTimeout(() => {
+              const x = e.clientX;
+              const y = e.clientY;
+              const color = fireworkColors[Math.floor(Math.random() * fireworkColors.length)];
+              createFireworkExplosion(x, y, color, 80);
+              if (Math.random() > 0.5) {
+                setTimeout(() => {
+                  createHeartFirework(x, y, color);
+                }, 150);
+              }
+            }, i * 200);
+          }
+        }
+      });
+      
+      // 初始化烟花
+      setTimeout(() => {
+        for (let i = 0; i < 3; i++) {
+          setTimeout(createFirework, i * 1000);
+        }
+      }, 2000);
+    });
+  </script>
+</body>
+</html>
